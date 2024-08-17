@@ -1,0 +1,83 @@
+{% extends "layout.html" %} {% block content %}
+<style>
+    body,
+    html {
+        height: 100%;
+        margin: 0;
+        font-family: 'Arial', sans-serif;
+    }
+    
+    .bg {
+        background-image: url('https://cdn.pixabay.com/photo/2016/11/18/14/05/brick-wall-1834784_1280.jpg');
+        height: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        filter: brightness(50%);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+    }
+    
+    .content {
+        color: white;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        width: 80%;
+        max-width: 800px;
+        padding: 40px;
+        text-align: center;
+        background-color: rgba(0, 0, 0, 0.6);
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    }
+    
+    h1 {
+        font-size: 2.5em;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+    
+    .welcome-text {
+        font-size: 1.2em;
+        margin-bottom: 30px;
+        color: #ffd700;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    }
+    
+    .btn {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        transition: 0.3s;
+        border-radius: 5px;
+    }
+    
+    .btn:hover {
+        background-color: #45a049;
+        transform: scale(1.05);
+    }
+</style>
+
+<div class="bg"></div>
+<div class="content">
+    <h1>NYC Restaurant Health Predictor</h1>
+    <p class="welcome-text">Welcome to Your Gateway for Safe Dining in the Big Apple</p>
+    <p>Discover the safety of your favorite NYC eateries with our advanced prediction tool.</p>
+    <a href="{{ url_for('predict') }}" class="btn">Start Predicting</a>
+</div>
+{% endblock content %}
