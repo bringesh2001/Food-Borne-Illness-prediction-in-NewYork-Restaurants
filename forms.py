@@ -8,7 +8,7 @@ from wtforms import (
 )
 from wtforms.validators import DataRequired
 
-data = pd.read_csv("Notebooks\data.csv")
+data = pd.read_csv("largefile\data.csv")
 
 class InputForm(FlaskForm):
     restaurant_category = SelectField(
