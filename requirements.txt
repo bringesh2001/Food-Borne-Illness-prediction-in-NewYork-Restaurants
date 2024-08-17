@@ -5,3 +5,4 @@ flask
 flask-wtf
 gunicorn
 psycopg2
+flask-sqlalchemy
