@@ -8,30 +8,7 @@ from wtforms import (
 )
 from wtforms.validators import DataRequired
 
-# getting the data
-hostname = 'localhost'
-database = 'nyfd'
-user_name = 'postgres'
-pwd = 'raksha' 
-port_id= 5432
-conn=None
-cur=None
-
-conn = psycopg2.connect(
-    host=hostname,
-    database=database,
-    user=user_name,
-    password=pwd
-)
-
-cur = conn.cursor()
-cur.execute('SELECT * FROM public."vi"')
-data = cur.fetchall() 
-
-cur.close()
-conn.close()
-
-data = pd.DataFrame(data)
+data = pd.read_csv("Notebooks\data.csv")
 
 class InputForm(FlaskForm):
     restaurant_category = SelectField(
