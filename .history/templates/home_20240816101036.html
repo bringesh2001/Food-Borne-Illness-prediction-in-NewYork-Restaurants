@@ -1,0 +1,11 @@
+{% extends "layout.html" %} {% block content %}
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="display-4">New York Restaurants Foodborne Illness Predictor</h1>
+        <p class="lead">Welcome to our foodborne illness predictor!</p>
+        <hr class="my-4">
+        <p>Click the link below to start predicting!</p>
+        <a class="btn btn-primary btn-lg" href="{{ url_for('predict') }}" role="button">Predict Now!</a>
+    </div>
+</div>
+{% endblock content %}

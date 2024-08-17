@@ -1,0 +1,56 @@
+{% extends "layout.html" %} {% block content %}
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+    <div>
+        {{ form.restaurant_category.label }} {{ form.restaurant_category }} {% if form.airline.errors %} {% for error in form.restaurant_category.errors %}
+        <div>{{ error }}</div>
+        {% endfor %} {% endif %}
+    </div>
+    <br>
+    <div>
+        {{ form.avg_days_bw_inspection.label }} {{ form.avg_days_bw_inspection }} {% if form.avg_days_bw_inspection.errors %} {% for error in form.avg_days_bw_inspection.errors %}
+        <div>{{ error }}</div>
+        {% endfor %} {% endif %}
+    </div>
+    <br>
+    <div>
+        {{ form.total_critical_violations.label }} {{ form.total_critical_violations }} {% if form.total_critical_violations.errors %} {% for error in form.total_critical_violations.errors %}
+        <div>{{ error }}</div>
+        {% endfor %} {% endif %}
+    </div>
+    <br>
+    <div>
+        {{ form.total_crit_not_corrected.label }} {{ form.total_crit_not_corrected }} {% if form.total_crit_not_corrected.errors %} {% for error in form.total_crit_not_corrected.errors %}
+        <div>{{ error }}</div>
+        {% endfor %} {% endif %}
+    </div>
+    <br>
+    <div>
+        {{ form.total_noncritical_violations.label }} {{ form.total_noncritical_violations }} {% if form.total_noncritical_violations.errors %} {% for error in form.total_noncritical_violations.errors %}
+        <div>{{ error }}</div>
+        {% endfor %} {% endif %}
+    </div>
+    <br>
+    <div>
+        {{ form.permit_status.label }} {{ form.permit_status }} {% if form.permit_status.errors %} {% for error in form.permit_status.errors %}
+        <div>{{ error }}</div>
+        {% endfor %} {% endif %}
+    </div>
+    <br>
+    <div>
+        {{ form.violation_type.label }} {{ form.violation_type }} {% if form.violation_type.errors %} {% for error in form.violation_type.errors %}
+        <div>{{ error }}</div>
+        {% endfor %} {% endif %}
+    </div>
+    <br>
+    <div>{{ form.submit() }}</div>
+    <br>
+    <div>
+        {{ output }}
+    </div>
+    <br>
+    <div>
+        <p>Redirect to Homepage? <a href="{{ url_for('home') }}">Home</a></p>
+    </div>
+</form>
+{% endblock content %}

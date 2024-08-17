@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> {% block content %}
+<div class="container">
+    <h1>NYC Restaurant Health Predictor</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }} {% for field in [form.restaurant_category, form.avg_days_bw_inspection, form.total_critical_violations, form.total_crit_not_corrected, form.total_noncritical_violations, form.permit_status, form.violation_type] %}
+        <div class="form-group">
+            {{ field.label }} {{ field }} {% if field.errors %} {% for error in field.errors %}
+            <div class="error">{{ error }}</div>
+            {% endfor %} {% endif %}
+        </div>
+        {% endfor %}
+
+        <div class="form-group">
+            {{ form.submit() }}
+        </div>
+
+        {% if output %}
+        <div class="output">
+            {{ output }}
+        </div>
+        {% endif %}
+    </form>
+
+    <div class="home-link">
+        <a href="{{ url_for('home') }}">Return to Homepage</a>
+    </div>
+</div>
+{% endblock content %}

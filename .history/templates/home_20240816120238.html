@@ -1,0 +1,22 @@
+{% extends "layout.html" %} {% block content %}
+<style>
+    a.btn {
+        transition: background-color 0.3s ease-in-out;
+    }
+    
+    a.btn:hover {
+        background-color: #ff9999;
+        color: #660033;
+    }
+</style>
+
+<div class="container">
+    <div class="jumbotron" style="background-image: linear-gradient(to bottom, #ff9999, #ffffff);">
+        <h1 class="display-4" style="color: #660033; font-weight: bold;">New York Restaurants Foodborne Illness Predictor</h1>
+        <p class="lead" style="color: #660033;">Welcome to our foodborne illness predictor!</p>
+        <hr class="my-4" style="border-color: #660033;">
+        <p style="color: #660033;">Click the link below to start predicting and stay safe!</p>
+        <a class="btn btn-lg" style="background-color: #660033; color: #ffffff;" href="{{ url_for('predict') }}" role="button">Predict Now!</a>
+    </div>
+</div>
+{% endblock content %}

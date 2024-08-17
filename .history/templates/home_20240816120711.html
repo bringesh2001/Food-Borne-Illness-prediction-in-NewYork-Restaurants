@@ -1,0 +1,71 @@
+{% extends "layout.html" %} {% block content %}
+<style>
+    body,
+    html {
+        height: 100%;
+        margin: 0;
+        font-family: 'Arial', sans-serif;
+    }
+    
+    .bg {
+        background-image: url('/api/placeholder/1920/1080');
+        height: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        filter: blur(5px);
+        -webkit-filter: blur(5px);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+    }
+    
+    .content {
+        background-color: rgba(0, 0, 0, 0.4);
+        color: white;
+        font-weight: bold;
+        border: 3px solid #f1f1f1;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        width: 80%;
+        padding: 20px;
+        text-align: center;
+    }
+    
+    h1 {
+        font-size: 2.5em;
+        margin-bottom: 20px;
+    }
+    
+    .btn {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    
+    .btn:hover {
+        background-color: #45a049;
+    }
+</style>
+
+<div class="bg"></div>
+<div class="content">
+    <h1>Welcome to New York Restaurants Foodborne Illness Predictor</h1>
+    <p>Discover the safety of your favorite NYC eateries with our advanced prediction tool.</p>
+    <a href="{{ url_for('predict') }}" class="btn">Start Predicting</a>
+</div>
+{% endblock content %}
