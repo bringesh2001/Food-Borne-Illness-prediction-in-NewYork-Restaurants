@@ -4,8 +4,8 @@
 
 ![Python](https://img.shields.io/badge/python-v3.8+-blue.svg)
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-Applink:(https://food-borne-illness-prediction-in-newyork.onrender.com/)
+![AppLink](https://food-borne-illness-prediction-in-newyork.onrender.com/)
+
 
 ## 🚀 Project Overview
 
@@ -57,7 +57,7 @@ Visit `http://localhost:5000` in your browser to access the web interface.
 
 Our model has demonstrated remarkable performance:
 
-- **90% Accuracy** in identifying high-risk establishments
+- **80% Accuracy** in identifying high-risk establishments
 - **Potential 35% Reduction** in foodborne illnesses
 - **60% Decrease** in model training time
 
@@ -66,12 +66,6 @@ These results not only showcase the technical prowess of our system but also hig
 ## 🤝 Contributing
 
 As a firm believer in the power of collaboration, I welcome contributions from fellow data enthusiasts, public health professionals, and anyone passionate about food safety. Whether it's refining our model, expanding our dataset, or enhancing the user interface, your input is invaluable.
-
-Check out our [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to get started.
-
-## 📜 License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
 
 ## 🙏 Acknowledgments
 
