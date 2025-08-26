@@ -5,7 +5,7 @@ import joblib
 import numpy as np
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "secret_key"#this is a secret key for the flask app
+app.config["SECRET_KEY"] = "secret_key"# this is a secret key for the flask app
 
 model = joblib.load("Notebooks/xgboostmdl.joblib")
 
