@@ -1,0 +1,8 @@
+largedata/
+ny/
+Notebooks/*.ipynb
+*.csv
+__pycache__/
+*.pyc
+.git/
+.gitignore
