@@ -37,45 +37,6 @@ try:
     patch_one_hot_encoder(model)
 except Exception as e:
     print(f"Failed to patch OneHotEncoder: {e}")
-from flask import Flask, url_for, render_template
-from forms import InputForm
-import pandas as pd
-import joblib
-import numpy as np
-
-app = Flask(__name__)
-app.config["SECRET_KEY"] = "secret_key"
-
-# Hack to fix AttributeError: Can't get attribute '_RemainderColsList'
-import sklearn.compose._column_transformer
-class _RemainderColsList(list):
-    pass
-sklearn.compose._column_transformer._RemainderColsList = _RemainderColsList
-
-model = joblib.load("Notebooks/xgboostmdl.joblib")
-
-# Hack to fix AttributeError: 'OneHotEncoder' object has no attribute 'sparse'
-def patch_one_hot_encoder(estimator):
-    if hasattr(estimator, 'steps'):  # Pipeline
-        for name, step in estimator.steps:
-            patch_one_hot_encoder(step)
-    elif hasattr(estimator, 'transformers_'):  # ColumnTransformer
-        for item in estimator.transformers_:
-            if len(item) == 3:
-                name, transformer, columns = item
-                patch_one_hot_encoder(transformer)
-    elif 'OneHotEncoder' in str(type(estimator)):
-        if not hasattr(estimator, 'sparse'):
-            if hasattr(estimator, 'sparse_output'):
-                estimator.sparse = estimator.sparse_output
-            else:
-                estimator.sparse = False
-            print(f"Patched OneHotEncoder with sparse={estimator.sparse}")
-
-try:
-    patch_one_hot_encoder(model)
-except Exception as e:
-    print(f"Failed to patch OneHotEncoder: {e}")
 
 @app.route("/")
 @app.route("/home")
