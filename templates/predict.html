@@ -1,68 +1,220 @@
-{% extends "layout.html" %} {% block content %}
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        max-width: 600px;
-        margin: 0 auto;
-        padding: 20px;
-    }
-    
-    h1 {
-        color: #333;
-    }
-    
-    form div {
-        margin-bottom: 10px;
-    }
-    
-    label {
-        display: block;
-        margin-bottom: 5px;
-    }
-    
-    input,
-    select {
-        width: 100%;
-        padding: 5px;
-    }
-    
-    input[type="submit"] {
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        padding: 10px;
-        cursor: pointer;
-    }
-    
-    .error {
-        color: red;
-    }
-    
-    .output {
-        background-color: #f0f0f0;
-        padding: 10px;
-        margin-top: 20px;
-    }
-</style>
+{% extends "layout.html" %}
+{% block content %}
 
-<h1>NYC Restaurant Health Predictor</h1>
-<form action="" method="post">
-    {{ form.hidden_tag() }} {% for field in form if field.name != 'csrf_token' and field.name != 'submit' %}
-    <div>
-        {{ field.label }} {{ field }} {% if field.errors %} {% for error in field.errors %}
-        <div class="error">{{ error }}</div>
-        {% endfor %} {% endif %}
+<div class="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl mx-auto">
+
+        <!-- Header -->
+        <div class="text-center mb-10">
+            <h1 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                Predict Restaurant Safety
+            </h1>
+            <p class="mt-4 text-lg text-gray-500">
+                Enter the restaurant's details below to get an instant safety assessment.
+            </p>
+        </div>
+
+        <!-- Form Card -->
+        <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+            <form action="" method="post" class="space-y-6" id="predictionForm">
+                {{ form.hidden_tag() }}
+
+                <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
+
+                    <!-- Restaurant Category -->
+                    <div class="sm:col-span-2">
+                        <label for="restaurant_category" class="block text-sm font-medium text-gray-700">Restaurant
+                            Category</label>
+                        <div class="mt-1">
+                            {{ form.restaurant_category(class="shadow-sm focus:ring-primary focus:border-primary block
+                            w-full sm:text-sm border-gray-300 rounded-md p-2 border") }}
+                        </div>
+                    </div>
+
+                    <!-- Avg Days Between Inspection -->
+                    <div>
+                        <label for="avg_days_bw_inspection" class="block text-sm font-medium text-gray-700">Avg Days b/w
+                            Inspection</label>
+                        <div class="mt-1">
+                            {{ form.avg_days_bw_inspection(class="shadow-sm focus:ring-primary focus:border-primary
+                            block w-full sm:text-sm border-gray-300 rounded-md p-2 border") }}
+                        </div>
+                    </div>
+
+                    <!-- Permit Status -->
+                    <div>
+                        <label for="permit_status" class="block text-sm font-medium text-gray-700">Permit Status</label>
+                        <div class="mt-1">
+                            {{ form.permit_status(class="shadow-sm focus:ring-primary focus:border-primary block w-full
+                            sm:text-sm border-gray-300 rounded-md p-2 border") }}
+                        </div>
+                    </div>
+
+                    <!-- Critical Violations -->
+                    <div>
+                        <label for="total_critical_violations" class="block text-sm font-medium text-gray-700">Critical
+                            Violations</label>
+                        <div class="mt-1">
+                            {{ form.total_critical_violations(class="shadow-sm focus:ring-primary focus:border-primary
+                            block w-full sm:text-sm border-gray-300 rounded-md p-2 border") }}
+                        </div>
+                    </div>
+
+                    <!-- Critical Not Corrected -->
+                    <div>
+                        <label for="total_crit_not_corrected" class="block text-sm font-medium text-gray-700">Critical
+                            Not Corrected</label>
+                        <div class="mt-1">
+                            {{ form.total_crit_not_corrected(class="shadow-sm focus:ring-primary focus:border-primary
+                            block w-full sm:text-sm border-gray-300 rounded-md p-2 border") }}
+                        </div>
+                    </div>
+
+                    <!-- Non-Critical Violations -->
+                    <div>
+                        <label for="total_noncritical_violations"
+                            class="block text-sm font-medium text-gray-700">Non-Critical Violations</label>
+                        <div class="mt-1">
+                            {{ form.total_noncritical_violations(class="shadow-sm focus:ring-primary
+                            focus:border-primary block w-full sm:text-sm border-gray-300 rounded-md p-2 border") }}
+                        </div>
+                    </div>
+
+                    <!-- Violation Category -->
+                    <div class="sm:col-span-2">
+                        <label for="violation_category" class="block text-sm font-medium text-gray-700">Violation
+                            Type</label>
+                        <div class="mt-1">
+                            {{ form.violation_category(class="shadow-sm focus:ring-primary focus:border-primary block
+                            w-full sm:text-sm border-gray-300 rounded-md p-2 border") }}
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="pt-5">
+                    <button type="submit" id="submitBtn"
+                        class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition duration-300">
+                        <span id="btnText">Analyze Restaurant</span>
+                        <svg id="loadingSpinner" class="hidden animate-spin ml-3 h-5 w-5 text-white"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                            </circle>
+                            <path class="opacity-75" fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Results Section -->
+        {% if output %}
+        <div id="resultsSection" class="mt-10 bg-white shadow sm:rounded-lg overflow-hidden">
+            <div class="px-4 py-5 sm:p-6">
+                <h3 class="text-lg leading-6 font-medium text-gray-900 text-center mb-6">Analysis Result</h3>
+
+                <div class="flex flex-col items-center justify-center">
+                    <!-- Gauge Chart Container -->
+                    <div class="w-64 h-32 relative mb-6">
+                        <canvas id="gaugeChart"></canvas>
+                        <div class="absolute bottom-0 left-0 right-0 text-center">
+                            <span
+                                class="text-2xl font-bold {{ 'text-red-600' if 'avoid' in output else 'text-green-600' }}">
+                                {{ 'Critical' if 'avoid' in output else 'Safe' }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <p
+                            class="text-xl {{ 'text-red-600' if 'avoid' in output else 'text-green-600' }} font-bold mb-2">
+                            {{ output }}
+                        </p>
+                        <p class="text-gray-500">
+                            Based on the provided data, our model has analyzed the risk factors.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // Scroll to results
+            document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+
+            // Gauge Chart Logic
+            const ctx = document.getElementById('gaugeChart').getContext('2d');
+            const isSafe = {{ 'true' if is_safe else 'false' }};
+
+            // Simple Gauge Chart using Doughnut
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Risk', 'Safety'],
+                    datasets: [{
+                        data: isSafe ? [20, 80] : [80, 20], // Simulated score
+                        backgroundColor: [
+                            isSafe ? '#E5E7EB' : '#EF4444', // Gray or Red
+                            isSafe ? '#10B981' : '#E5E7EB'  // Green or Gray
+                        ],
+                        borderWidth: 0,
+                        circumference: 180,
+                        rotation: 270,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '75%',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { enabled: false }
+                    }
+                }
+            });
+
+            // Confetti if Safe
+            if (isSafe) {
+                var duration = 3 * 1000;
+                var animationEnd = Date.now() + duration;
+                var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+                function randomInRange(min, max) {
+                    return Math.random() * (max - min) + min;
+                }
+
+                var interval = setInterval(function () {
+                    var timeLeft = animationEnd - Date.now();
+
+                    if (timeLeft <= 0) {
+                        return clearInterval(interval);
+                    }
+
+                    var particleCount = 50 * (timeLeft / duration);
+                    confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+                    confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+                }, 250);
+            }
+        </script>
+        {% endif %}
+
     </div>
-    {% endfor %}
-    <div>{{ form.submit() }}</div>
-</form>
-{% if output %}
-<div class="output">
-    <h2>Prediction Result:</h2>
-    <p>{{ output }}</p>
 </div>
-{% endif %}
-<div>
-    <p>Return to <a href="{{ url_for('home') }}">Homepage</a></p>
-</div>
+
+<script>
+    // Form submission loading state
+    document.getElementById('predictionForm').addEventListener('submit', function () {
+        const btn = document.getElementById('submitBtn');
+        const btnText = document.getElementById('btnText');
+        const spinner = document.getElementById('loadingSpinner');
+
+        btn.disabled = true;
+        btn.classList.add('opacity-75', 'cursor-not-allowed');
+        btnText.textContent = 'Analyzing...';
+        spinner.classList.remove('hidden');
+    });
+</script>
+
 {% endblock content %}
