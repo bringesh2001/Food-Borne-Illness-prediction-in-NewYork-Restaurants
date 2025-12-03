@@ -1,5 +1,3 @@
-import pandas as pd
-import psycopg2
 from flask_wtf import FlaskForm
 from wtforms import (
     SelectField,
@@ -8,12 +6,28 @@ from wtforms import (
 )
 from wtforms.validators import DataRequired
 
-data = pd.read_csv("./largedata/data.csv")
+# Hardcoded choices to avoid reading the large CSV file
+RESTAURANT_CATEGORY_CHOICES = [
+    "Fast Food", "Other", "American", "Italian", "Japanese", "Chinese", "Mexican", "Indian"
+]
+
+PERMIT_STATUS_CHOICES = [
+    "Active", "Expired"
+]
+
+VIOLATION_CATEGORY_CHOICES = [
+    "Unknown",
+    "Vermin and Sanitation",
+    "Facility and Equipment",
+    "Administrative and Documentation",
+    "Food Temperature and Protection",
+    "Miscellaneous"
+]
 
 class InputForm(FlaskForm):
     restaurant_category = SelectField(
         label="Restaurant Category",
-        choices = data.iloc[:, 0].unique().tolist(),
+        choices=RESTAURANT_CATEGORY_CHOICES,
         validators=[DataRequired()]
     )
     
@@ -32,13 +46,13 @@ class InputForm(FlaskForm):
     )
     permit_status = SelectField(
         label = 'Permit status',
-        choices=data.iloc[:,-3].unique().tolist(),
+        choices=PERMIT_STATUS_CHOICES,
         validators=[DataRequired()]
 
     )
     violation_category = SelectField(
         label ='Violation Type',
-        choices = data.iloc[:,-1].unique().tolist(),
+        choices=VIOLATION_CATEGORY_CHOICES,
         validators=[DataRequired()]
         
     )

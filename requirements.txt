@@ -5,6 +5,4 @@ feature-engine
 flask
 flask-wtf
 gunicorn
-psycopg2-binary
-flask-sqlalchemy
 xgboost

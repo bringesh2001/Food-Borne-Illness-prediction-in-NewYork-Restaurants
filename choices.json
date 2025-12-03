@@ -1,0 +1,24 @@
+{
+  "restaurant_category": [
+    "Fast Food",
+    "Other",
+    "American",
+    "Italian",
+    "Japanese",
+    "Chinese",
+    "Mexican",
+    "Indian"
+  ],
+  "permit_status": [
+    "Active",
+    "Expired"
+  ],
+  "violation_category": [
+    "Unknown",
+    "Vermin and Sanitation",
+    "Facility and Equipment",
+    "Administrative and Documentation",
+    "Food Temperature and Protection",
+    "Miscellaneous"
+  ]
+}
