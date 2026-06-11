@@ -75,7 +75,6 @@ As a firm believer in the power of collaboration, I welcome contributions from f
 ## 🙏 Acknowledgments
 
 - New York City Department of Health and Mental Hygiene for their comprehensive dataset
-- My advisors and peers at California State University, East Bay for their invaluable guidance
 - The open-source community for providing the tools that made this project possible
 - Render for hosting our live application
 
