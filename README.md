@@ -81,5 +81,5 @@ As a firm believer in the power of collaboration, I welcome contributions from f
 
 ---
 
-Developed with ❤️ and 🧠 by [Bringesh Chowdavarapu]
+Developed with ❤️ and 🧠 by [Vidyanand Pasunuri]
 
